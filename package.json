@@ -11,17 +11,18 @@
     "dev": "tsx watch src/server.ts",
     "start": "node build/server.js"
   },
-  "devDependencies": {
-    "@biomejs/biome": "2.3.0",
-    "@types/node": "^24.9.1",
-    "chalk": "^5.6.2",
-    "tsx": "^4.20.6",
-    "typescript": "^5.9.3"
-  },
   "dependencies": {
     "@fastify/cors": "^11.1.0",
     "fastify": "^5.6.1",
     "fastify-type-provider-zod": "^6.0.0",
     "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.3.0",
+    "@types/node": "^24.9.1",
+    "chalk": "^5.6.2",
+    "tsup": "^8.5.0",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
   }
 }

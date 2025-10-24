@@ -6,12 +6,15 @@ import {
   type ZodTypeProvider,
 } from "fastify-type-provider-zod"
 import { errorHandler } from "./error-handler"
+import { createCar } from "./http/controllers/cars/create-car"
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>()
+
+app.register(fastifyCors)
 
 app.setSerializerCompiler(serializerCompiler)
 app.setValidatorCompiler(validatorCompiler)
 
 app.setErrorHandler(errorHandler)
 
-app.register(fastifyCors)
+app.register(createCar)
