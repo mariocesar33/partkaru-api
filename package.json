@@ -9,7 +9,10 @@
   "packageManager": "pnpm@10.6.4",
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "start": "node build/server.js"
+    "start": "node build/server.js",
+    "generate": "drizzle-kit generate",
+    "migrate": "drizzle-kit migrate",
+    "studio": "drizzle-kit studio"
   },
   "dependencies": {
     "@fastify/cors": "^11.1.0",
