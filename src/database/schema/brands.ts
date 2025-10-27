@@ -12,12 +12,8 @@ export const brands = pgTable("brands", {
   countryOrigin: varchar("country_origin", { length: 50 }),
 })
 
-export const brandsRelations = relations(brands, ({ one }) => {
+export const brandsRelations = relations(brands, ({ many }) => {
   return {
-    brandModels: one(models, {
-      fields: [brands.id],
-      references: [models.brandId],
-      relationName: "brand_models",
-    }),
+    brandModels: many(models),
   }
 })

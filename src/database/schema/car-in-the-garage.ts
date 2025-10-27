@@ -10,6 +10,6 @@ export const carInTheGarage = pgTable("car-in-the-garage", {
   licensePlate: text("license_plate"),
 })
 
-export const carInTheGarageRelations = relations(carInTheGarage, ({ one }) => {
-  return {}
-})
+// export const carInTheGarageRelations = relations(carInTheGarage, ({ one }) => {
+//   return {}
+// })

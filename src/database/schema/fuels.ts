@@ -1,6 +1,7 @@
 import { pgTable, text, varchar } from "drizzle-orm/pg-core"
 import { createId } from "@paralleldrive/cuid2"
 import { relations } from "drizzle-orm"
+import { engines } from "./engines"
 
 export const fuels = pgTable("fuels", {
   id: text("id")
@@ -9,6 +10,8 @@ export const fuels = pgTable("fuels", {
   name: varchar("name", { length: 50 }).notNull().unique(),
 })
 
-export const fuelsRelations = relations(fuels, ({ one }) => {
-  return {}
+export const fuelsRelations = relations(fuels, ({ many }) => {
+  return {
+    fuelEngines: many(engines),
+  }
 })

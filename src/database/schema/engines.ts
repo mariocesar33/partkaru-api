@@ -3,6 +3,7 @@ import { createId } from "@paralleldrive/cuid2"
 import { relations } from "drizzle-orm"
 import { fuels } from "./fuels"
 import { combSystems } from "./comb-systems"
+import { modifications } from "./modifications"
 
 export const engines = pgTable("engines", {
   id: text("id")
@@ -19,11 +20,25 @@ export const engines = pgTable("engines", {
   powerCV: integer("power_cv"),
   displacementCC: integer("displacement_cc").notNull(),
   numberOfCylinders: integer("number_of_cylinders").notNull(),
-  valvesPerCylinder: integer("valves_per _cylinder").notNull(),
-  startDate: timestamp("created_at").notNull(),
-  endDate: timestamp("created_at"),
+  valvesPerCylinder: integer("valves_per_cylinder").notNull(),
+  startDate: timestamp("start_date").notNull(),
+  endDate: timestamp("end_date"),
 })
 
-export const enginesRelations = relations(engines, ({ one }) => {
-  return {}
+export const enginesRelations = relations(engines, ({ one, many }) => {
+  return {
+    fuel: one(fuels, {
+      fields: [engines.fuelId],
+      references: [fuels.id],
+      relationName: "engines_fuel",
+    }),
+    combSystem: one(combSystems, {
+      fields: [engines.combSystemsId],
+      references: [combSystems.id],
+      relationName: "engines_comb_system",
+    }),
+    modifications: many(modifications, {
+      relationName: "engine_car_versions", // ← ADICIONE ESTA LINHA
+    }),
+  }
 })

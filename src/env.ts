@@ -1,9 +1,14 @@
+import "dotenv/config"
+
 import z from "zod"
 
 const envSchema = z.object({
   API_BASE_URL: z.string().min(1),
-  DATABASE_URL: z.string().min(1),
   PORT: z.coerce.number().default(3333),
+  DATABASE_URL: z.string().min(1),
+  DATABASE_USER: z.string().min(1),
+  DATABASE_PASSWORD: z.string().min(1),
+  DATABASE_NAME: z.string().min(1),
 })
 
 const _env = envSchema.safeParse(process.env)

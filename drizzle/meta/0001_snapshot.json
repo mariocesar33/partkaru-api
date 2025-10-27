@@ -1,6 +1,6 @@
 {
-  "id": "ebba148e-74d4-40cc-86d4-8d15008e214a",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "be411c5b-4c5f-4a70-ac2a-7c19c5cfc230",
+  "prevId": "ebba148e-74d4-40cc-86d4-8d15008e214a",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -105,6 +105,126 @@
           ]
         }
       },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.modifications": {
+      "name": "modifications",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "model_id": {
+          "name": "model_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "engine_id": {
+          "name": "engine_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "car_body_id": {
+          "name": "car_body_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "propulsion_id": {
+          "name": "propulsion_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_name": {
+          "name": "version_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "version_code": {
+          "name": "version_code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "start_date": {
+          "name": "start_date",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "end_date": {
+          "name": "end_date",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "modifications_model_id_models_id_fk": {
+          "name": "modifications_model_id_models_id_fk",
+          "tableFrom": "modifications",
+          "tableTo": "models",
+          "columnsFrom": [
+            "model_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "modifications_engine_id_engines_id_fk": {
+          "name": "modifications_engine_id_engines_id_fk",
+          "tableFrom": "modifications",
+          "tableTo": "engines",
+          "columnsFrom": [
+            "engine_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "modifications_car_body_id_car_bodies_id_fk": {
+          "name": "modifications_car_body_id_car_bodies_id_fk",
+          "tableFrom": "modifications",
+          "tableTo": "car_bodies",
+          "columnsFrom": [
+            "car_body_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "modifications_propulsion_id_propulsions_id_fk": {
+          "name": "modifications_propulsion_id_propulsions_id_fk",
+          "tableFrom": "modifications",
+          "tableTo": "propulsions",
+          "columnsFrom": [
+            "propulsion_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
       "policies": {},
       "checkConstraints": {},
       "isRLSEnabled": false
