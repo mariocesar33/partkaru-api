@@ -2,6 +2,7 @@ import type { FastifyInstance } from "fastify"
 import type { ZodTypeProvider } from "fastify-type-provider-zod"
 import { z } from "zod"
 import { makeCreateBrandUseCase } from "../../../functions/factories/make-create-brand-use-case"
+import { AlreadyExistsError } from "../../../functions/_errors/already-exists-error"
 
 export async function createBrand(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
@@ -9,7 +10,10 @@ export async function createBrand(app: FastifyInstance) {
     {
       schema: {
         body: z.object({
-          name: z.string(),
+          name: z
+            .string()
+            .min(2, "Name must be at least 2 characters long")
+            .max(50, "Name must be at most 50 characters long"),
           popular: z.boolean().optional(),
           countryOrigin: z.string().optional(),
         }),
@@ -17,7 +21,7 @@ export async function createBrand(app: FastifyInstance) {
           201: z.object({
             brandId: z.string(),
           }),
-          400: z.object({
+          409: z.object({
             message: z.string(),
           }),
         },
@@ -34,13 +38,17 @@ export async function createBrand(app: FastifyInstance) {
         countryOrigin,
       })
 
-      if (!result) {
-        const message = "falha ao criar a marca."
+      if (result.isLeft()) {
+        const error = result.value
 
-        return reply.status(400).send({ message })
+        if (error instanceof AlreadyExistsError) {
+          return reply.status(409).send({ message: error.message })
+        }
+
+        throw error
       }
 
-      return reply.status(201).send({ brandId: result.brand.id })
+      return reply.status(201).send({ brandId: result.value.brand.id })
     }
   )
 }

@@ -31,10 +31,10 @@ app.register(fastifySwagger, {
   transform: jsonSchemaTransform,
 })
 
-app.setErrorHandler(errorHandler)
-
 app.register(fastifySwaggerUI, {
   routePrefix: "/docs",
 })
+
+app.setErrorHandler(errorHandler)
 
 app.register(createBrand)

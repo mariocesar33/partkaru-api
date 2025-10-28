@@ -5,6 +5,6 @@ POST {{baseUrl}}/brands
 Content-Type: application/json
 
 {
-  "name": "peugeot",
+  "name": "toyota",
   "popular": true
 }

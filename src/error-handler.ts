@@ -6,29 +6,21 @@ import { UnauthorizedError } from "./functions/_errors/unauthorized-error"
 
 type FastifyErrorHandler = FastifyInstance["errorHandler"]
 
-export const errorHandler: FastifyErrorHandler = (error, request, reply) => {
-  if (error instanceof ZodError) {
+export const errorHandler: FastifyErrorHandler = (error, _, reply) => {
+  // Captura erros de validação
+  if (error.code === "FST_ERR_VALIDATION" && error.validation) {
+    const formattedErrors = error.validation.map((validationError: any) => ({
+      field: validationError.instancePath.replace("/", ""),
+      message: validationError.message,
+    }))
+
     return reply.status(400).send({
       message: "Validation error",
-      // errors: error.flatten().fieldErrors,
+      errors: formattedErrors,
     })
   }
 
-  if (error instanceof BadRequestError) {
-    return reply.status(400).send({
-      message: error.message,
-    })
-  }
-
-  if (error instanceof UnauthorizedError) {
-    return reply.status(401).send({
-      message: error.message,
-    })
-  }
-
-  console.error(error)
-
-  // send error to some observability platform
-
-  return reply.status(500).send({ message: "Internal server error." })
+  // Erros inesperados (que fizeram throw)
+  console.error("Internal server error:", error)
+  return reply.status(500).send({ message: "Internal server error" })
 }

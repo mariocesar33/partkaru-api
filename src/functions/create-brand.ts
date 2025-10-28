@@ -2,6 +2,8 @@ import type {
   BrandDTO,
   BrandsRepository,
 } from "../repositories/brands-repository"
+import { AlreadyExistsError } from "./_errors/already-exists-error"
+import { left, right, type Either } from "./_errors/either"
 
 interface CreateBrandUseCaseRequest {
   name: string
@@ -9,9 +11,12 @@ interface CreateBrandUseCaseRequest {
   countryOrigin?: string | null
 }
 
-type CreateBrandUseCaseResponse = {
-  brand: BrandDTO
-}
+type CreateBrandUseCaseResponse = Either<
+  AlreadyExistsError,
+  {
+    brand: BrandDTO
+  }
+>
 
 export class CreateBrandUseCase {
   constructor(private brandsRepository: BrandsRepository) {}
@@ -24,7 +29,7 @@ export class CreateBrandUseCase {
     const existingBrand = await this.brandsRepository.findByName(name)
 
     if (existingBrand) {
-      throw new Error("Esta marca já existe.")
+      return left(new AlreadyExistsError(name))
     }
 
     const brand = await this.brandsRepository.create({
@@ -33,8 +38,8 @@ export class CreateBrandUseCase {
       countryOrigin,
     })
 
-    return {
+    return right({
       brand,
-    }
+    })
   }
 }
