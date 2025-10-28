@@ -1,0 +1,10 @@
+@baseUrl = http://localhost:3333
+
+# @name create_brand
+POST {{baseUrl}}/brands
+Content-Type: application/json
+
+{
+  "name": "peugeot",
+  "popular": true
+}

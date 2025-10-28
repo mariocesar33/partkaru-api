@@ -17,3 +17,6 @@ export const brandsRelations = relations(brands, ({ many }) => {
     brandModels: many(models),
   }
 })
+
+export type DrizzleInsertBrand = typeof brands.$inferInsert // Tipo para INSERT
+export type DrizzleSelectBrand = typeof brands.$inferSelect // Tipo para SELECT

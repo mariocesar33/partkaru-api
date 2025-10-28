@@ -7,7 +7,7 @@ import {
   type ZodTypeProvider,
 } from "fastify-type-provider-zod"
 import { errorHandler } from "./error-handler"
-import { createCar } from "./http/controllers/cars/create-car"
+import { createBrand } from "./http/controllers/brands/create-brand"
 import fastifySwagger from "@fastify/swagger"
 import fastifySwaggerUI from "@fastify/swagger-ui"
 
@@ -37,4 +37,4 @@ app.register(fastifySwaggerUI, {
   routePrefix: "/docs",
 })
 
-app.register(createCar)
+app.register(createBrand)
