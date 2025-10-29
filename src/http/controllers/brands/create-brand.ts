@@ -9,6 +9,8 @@ export async function createBrand(app: FastifyInstance) {
     "/brands",
     {
       schema: {
+        tags: ["Brands"],
+        summary: "Create brand",
         body: z.object({
           name: z
             .string()
