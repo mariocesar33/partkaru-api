@@ -11,6 +11,7 @@ import { createBrand } from "./http/controllers/brands/create-brand"
 import fastifySwagger from "@fastify/swagger"
 import fastifySwaggerUI from "@fastify/swagger-ui"
 import { getAllBrands } from "./http/controllers/brands/get-all-brands"
+import { createFuel } from "./http/controllers/fuels/create-fuel"
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -40,3 +41,4 @@ app.setErrorHandler(errorHandler)
 
 app.register(createBrand)
 app.register(getAllBrands)
+app.register(createFuel)
