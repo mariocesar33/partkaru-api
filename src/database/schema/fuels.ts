@@ -15,3 +15,6 @@ export const fuelsRelations = relations(fuels, ({ many }) => {
     fuelEngines: many(engines),
   }
 })
+
+export type DrizzleInsertFuel = typeof fuels.$inferInsert
+export type DrizzleSelectFuel = typeof fuels.$inferSelect
