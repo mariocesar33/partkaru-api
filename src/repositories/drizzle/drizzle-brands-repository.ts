@@ -14,6 +14,26 @@ export class DrizzleBrandsRepository implements BrandsRepository {
     return newBrand
   }
 
+  async save(brand: DrizzleSelectBrand): Promise<DrizzleSelectBrand> {
+    const { id, ...dataToUpdate } = brand
+
+    const [updatedBrand] = await db
+      .update(brands)
+      .set(dataToUpdate)
+      .where(eq(brands.id, id))
+      .returning()
+
+    if (!updatedBrand) {
+      throw new Error(`Marca com ID ${id} não encontrada para atualização.`)
+    }
+
+    return updatedBrand
+  }
+
+  async delete(id: string): Promise<void> {
+    await db.delete(brands).where(eq(brands.id, id))
+  }
+
   async findByName(name: string): Promise<DrizzleSelectBrand | null> {
     const [brand] = await db
       .select()

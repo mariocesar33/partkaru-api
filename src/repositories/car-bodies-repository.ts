@@ -10,6 +10,8 @@ export interface CreateCarBodyDTO {
 
 export interface CarBodiesRepository {
   create(data: CreateCarBodyDTO): Promise<CarBodyDTO>
+  save(carBody: CarBodyDTO): Promise<CarBodyDTO>
+  delete(id: string): Promise<void>
   findByName(name: string): Promise<CarBodyDTO | null>
   getAllCarBodiess(): Promise<CarBodyDTO[]>
 }

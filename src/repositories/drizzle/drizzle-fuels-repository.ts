@@ -14,6 +14,26 @@ export class DrizzleFuelsRepository implements FuelsRepository {
     return newFuel
   }
 
+  async save(fuel: DrizzleSelectFuel): Promise<DrizzleSelectFuel> {
+    const { id, ...dataToUpdate } = fuel
+
+    const [updatedFuel] = await db
+      .update(fuels)
+      .set(dataToUpdate)
+      .where(eq(fuels.id, id))
+      .returning()
+
+    if (!updatedFuel) {
+      throw new Error(`Fuel with ID ${id} not found for update.`)
+    }
+
+    return updatedFuel
+  }
+
+  async delete(id: string): Promise<void> {
+    await db.delete(fuels).where(eq(fuels.id, id))
+  }
+
   async findByName(name: string): Promise<DrizzleSelectFuel | null> {
     const [fuel] = await db
       .select()

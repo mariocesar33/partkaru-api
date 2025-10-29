@@ -10,6 +10,8 @@ export interface CreateFuelDTO {
 
 export interface FuelsRepository {
   create(data: CreateFuelDTO): Promise<FuelDTO>
+  save(fuel: FuelDTO): Promise<FuelDTO>
+  delete(id: string): Promise<void>
   findByName(name: string): Promise<FuelDTO | null>
   getAllFuels(): Promise<FuelDTO[]>
 }
