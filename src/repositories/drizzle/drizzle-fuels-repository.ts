@@ -7,7 +7,7 @@ import type { FuelsRepository } from "../fuels-repository"
 import { db } from "@/lib/drizzle"
 import { eq } from "drizzle-orm"
 
-export class DrizzleBrandsRepository implements FuelsRepository {
+export class DrizzleFuelsRepository implements FuelsRepository {
   async create(data: DrizzleInsertFuel): Promise<DrizzleSelectFuel> {
     const [newFuel] = await db.insert(fuels).values(data).returning()
 
@@ -15,18 +15,18 @@ export class DrizzleBrandsRepository implements FuelsRepository {
   }
 
   async findByName(name: string): Promise<DrizzleSelectFuel | null> {
-    const [brand] = await db
+    const [fuel] = await db
       .select()
       .from(fuels)
       .where(eq(fuels.name, name))
       .limit(1)
 
-    return brand || null
+    return fuel || null
   }
 
   async getAllFuels(): Promise<DrizzleSelectFuel[]> {
-    const allBrands = await db.select().from(fuels)
+    const allFuels = await db.select().from(fuels)
 
-    return allBrands
+    return allFuels
   }
 }
