@@ -12,7 +12,7 @@ export const models = pgTable("models", {
     onDelete: "set null",
   }),
   name: varchar("name", { length: 50 }).notNull().unique(),
-  description: text("generation"), // XII
+  description: text("description"), // XII
   generation: text("generation"), // E210
 })
 
