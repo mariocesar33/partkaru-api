@@ -12,7 +12,8 @@ export const models = pgTable("models", {
     onDelete: "set null",
   }),
   name: varchar("name", { length: 50 }).notNull().unique(),
-  generation: text("generation"),
+  description: text("generation"), // XII
+  generation: text("generation"), // E210
 })
 
 export const modelsRelations = relations(models, ({ one, many }) => {
@@ -23,7 +24,7 @@ export const modelsRelations = relations(models, ({ one, many }) => {
       relationName: "models_brand",
     }),
     modifications: many(modifications, {
-      relationName: "model_versions", // ← ADICIONE ESTA LINHA
+      relationName: "model_versions",
     }),
   }
 })
