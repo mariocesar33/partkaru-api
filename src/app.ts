@@ -10,6 +10,7 @@ import { errorHandler } from "./error-handler"
 import { createBrand } from "./http/controllers/brands/create-brand"
 import fastifySwagger from "@fastify/swagger"
 import fastifySwaggerUI from "@fastify/swagger-ui"
+import { getAllBrands } from "./http/controllers/brands/get-all-brands"
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -38,3 +39,4 @@ app.register(fastifySwaggerUI, {
 app.setErrorHandler(errorHandler)
 
 app.register(createBrand)
+app.register(getAllBrands)
