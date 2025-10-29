@@ -1,0 +1,14 @@
+@baseUrl = http://localhost:3333
+
+# @name create_fuel
+POST {{baseUrl}}/fuels
+Content-Type: application/json
+
+{
+  "name": "Gasóleo"
+}
+
+###
+
+# @name get_all_fuels
+Get {{baseUrl}}/fuels
