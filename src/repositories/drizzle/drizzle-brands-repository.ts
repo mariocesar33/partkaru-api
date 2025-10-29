@@ -3,8 +3,8 @@ import {
   brands,
   type DrizzleInsertBrand,
   type DrizzleSelectBrand,
-} from "../../database/schema"
-import { db } from "../../lib/drizzle"
+} from "@/database/schema"
+import { db } from "@/lib/drizzle"
 import type { BrandDTO, BrandsRepository } from "../brands-repository"
 
 export class DrizzleBrandsRepository implements BrandsRepository {

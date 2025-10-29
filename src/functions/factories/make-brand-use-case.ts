@@ -1,4 +1,4 @@
-import { DrizzleBrandsRepository } from "../../repositories/drizzle/drizzle-brands-repository"
+import { DrizzleBrandsRepository } from "@/repositories/drizzle/drizzle-brands-repository"
 import { CreateBrandUseCase } from "../create-brand"
 import { GetAllBrandsUseCase } from "../get-all-brands"
 

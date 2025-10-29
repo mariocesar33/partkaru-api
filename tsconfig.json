@@ -5,6 +5,11 @@
   "compilerOptions": {
     "lib": ["es2024", "ESNext.Array", "ESNext.Collection", "ESNext.Iterator"],
     "module": "nodenext",
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["./src/*", "./test/*"]
+    },
+    "types": ["vitest/globals"],
     "target": "es2022",
 
     "strict": true,

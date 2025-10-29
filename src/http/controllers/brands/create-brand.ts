@@ -1,8 +1,8 @@
 import type { FastifyInstance } from "fastify"
 import type { ZodTypeProvider } from "fastify-type-provider-zod"
 import { z } from "zod"
-import { AlreadyExistsError } from "../../../functions/_errors/already-exists-error"
-import { makeBrandUseCase } from "../../../functions/factories/make-brand-use-case"
+import { AlreadyExistsError } from "@/functions/_errors/already-exists-error"
+import { makeBrandUseCase } from "@/functions/factories/make-brand-use-case"
 
 export async function createBrand(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
