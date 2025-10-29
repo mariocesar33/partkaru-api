@@ -5,7 +5,8 @@ export interface BrandDTO {
   countryOrigin: string | null
 }
 
-interface CreateBrandDTO {
+export interface CreateBrandDTO {
+  id?: string | undefined
   name: string
   popular?: boolean
   countryOrigin?: string | null

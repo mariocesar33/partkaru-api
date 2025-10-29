@@ -26,16 +26,22 @@ export class CreateBrandUseCase {
     popular,
     countryOrigin,
   }: CreateBrandUseCaseRequest): Promise<CreateBrandUseCaseResponse> {
-    const existingBrand = await this.brandsRepository.findByName(name)
+    const formattedName = name.toLowerCase()
+
+    const existingBrand = await this.brandsRepository.findByName(formattedName)
 
     if (existingBrand) {
       return left(new AlreadyExistsError(name))
     }
 
+    const formattedCountryOrigin = countryOrigin
+      ? countryOrigin.toLowerCase()
+      : countryOrigin
+
     const brand = await this.brandsRepository.create({
-      name,
+      name: formattedName,
       popular,
-      countryOrigin,
+      countryOrigin: formattedCountryOrigin,
     })
 
     return right({

@@ -1,8 +1,8 @@
 import type { FastifyInstance } from "fastify"
 import type { ZodTypeProvider } from "fastify-type-provider-zod"
 import { z } from "zod"
-import { makeBrandUseCase } from "../../../functions/factories/make-brand-use-case"
-import { BadRequestError } from "../../../functions/_errors/bad-request-error"
+import { makeBrandUseCase } from "@/functions/factories/make-brand-use-case"
+import { BadRequestError } from "@/functions/_errors/bad-request-error"
 
 export async function getAllBrands(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(

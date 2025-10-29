@@ -5,8 +5,9 @@ POST {{baseUrl}}/brands
 Content-Type: application/json
 
 {
-  "name": "Audi",
-  "popular": true
+  "name": "Ford",
+  "popular": false,
+  "countryOrigin": "USA"
 }
 
 ###
