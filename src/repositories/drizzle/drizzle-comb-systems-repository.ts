@@ -41,13 +41,11 @@ export class DrizzleCombSystemsRepository implements CombSystemsRepository {
     await db.delete(combSystems).where(eq(combSystems.id, id))
   }
 
-  async findByDescription(
-    description: string
-  ): Promise<DrizzleSelectCombSystems | null> {
+  async findById(id: string): Promise<DrizzleSelectCombSystems | null> {
     const [combSystem] = await db
       .select()
       .from(combSystems)
-      .where(eq(combSystems.description, description))
+      .where(eq(combSystems.id, id))
       .limit(1)
 
     return combSystem || null
