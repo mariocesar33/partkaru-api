@@ -41,13 +41,11 @@ export class DrizzlePropulsionsRepository implements PropulsionsRepository {
     await db.delete(propulsions).where(eq(propulsions.id, id))
   }
 
-  async findByDescription(
-    description: string
-  ): Promise<DrizzleSelectPropulsions | null> {
+  async findById(id: string): Promise<DrizzleSelectPropulsions | null> {
     const [propulsion] = await db
       .select()
       .from(propulsions)
-      .where(eq(propulsions.description, description))
+      .where(eq(propulsions.id, id))
       .limit(1)
 
     return propulsion || null
