@@ -42,6 +42,16 @@ export class InMemoryCombSystemsRepository implements CombSystemsRepository {
     }
   }
 
+  async findById(id: string): Promise<CombSystemDTO | null> {
+    const combSystem = this.items.find((item) => item.id === id)
+
+    if (!combSystem) {
+      return null
+    }
+
+    return combSystem
+  }
+
   async findByDescription(description: string): Promise<CombSystemDTO | null> {
     const combSystem = this.items.find(
       (item) => item.description === description
