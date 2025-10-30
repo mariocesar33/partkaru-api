@@ -21,6 +21,26 @@ export class InMemoryBrandsRepository implements BrandsRepository {
     return brand
   }
 
+  async save(brand: BrandDTO): Promise<BrandDTO> {
+    const brandIndex = this.items.findIndex((item) => item.id === brand.id)
+
+    if (brandIndex < 0) {
+      throw new Error(`Brand with ID ${brand.id} not found.`)
+    }
+
+    this.items[brandIndex] = brand
+
+    return brand
+  }
+
+  async delete(id: string): Promise<void> {
+    const brandIndex = this.items.findIndex((item) => item.id === id)
+
+    if (brandIndex > -1) {
+      this.items.splice(brandIndex, 1)
+    }
+  }
+
   async findByName(name: string): Promise<BrandDTO | null> {
     const brand = this.items.find((item) => item.name === name)
 

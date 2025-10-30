@@ -19,6 +19,26 @@ export class InMemoryFuelsRepository implements FuelsRepository {
     return fuel
   }
 
+  async save(fuel: FuelDTO): Promise<FuelDTO> {
+    const fuelIndex = this.items.findIndex((item) => item.id === fuel.id)
+
+    if (fuelIndex < 0) {
+      throw new Error(`Fuel with ID ${fuel.id} not found.`)
+    }
+
+    this.items[fuelIndex] = fuel
+
+    return fuel
+  }
+
+  async delete(id: string): Promise<void> {
+    const fuelIndex = this.items.findIndex((item) => item.id === id)
+
+    if (fuelIndex > -1) {
+      this.items.splice(fuelIndex, 1)
+    }
+  }
+
   async findByName(name: string): Promise<FuelDTO | null> {
     const fuel = this.items.find((item) => item.name === name)
 
