@@ -12,6 +12,7 @@ export interface CombSystemsRepository {
   create(data: CreateCombSystemDTO): Promise<CombSystemDTO>
   save(combSystem: CombSystemDTO): Promise<CombSystemDTO>
   delete(id: string): Promise<void>
+  findById(id: string): Promise<CombSystemDTO | null>
   findByDescription(description: string): Promise<CombSystemDTO | null>
   getAllCombSystems(): Promise<CombSystemDTO[]>
 }
