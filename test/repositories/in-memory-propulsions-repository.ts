@@ -41,6 +41,16 @@ export class InMemoryPropulsionsRepository implements PropulsionsRepository {
     }
   }
 
+  async findById(id: string): Promise<PropulsionDTO | null> {
+    const propulsion = this.items.find((item) => item.id === id)
+
+    if (!propulsion) {
+      return null
+    }
+
+    return propulsion
+  }
+
   async findByDescription(description: string): Promise<PropulsionDTO | null> {
     const propulsion = this.items.find(
       (item) => item.description === description
