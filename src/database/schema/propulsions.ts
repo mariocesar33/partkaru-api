@@ -13,7 +13,10 @@ export const propulsions = pgTable("propulsions", {
 export const propulsionsRelations = relations(propulsions, ({ many }) => {
   return {
     modifications: many(modifications, {
-      relationName: "propulsion_versions", // ← ADICIONE
+      relationName: "propulsion_versions",
     }),
   }
 })
+
+export type DrizzleInsertPropulsions = typeof propulsions.$inferInsert
+export type DrizzleSelectPropulsions = typeof propulsions.$inferSelect

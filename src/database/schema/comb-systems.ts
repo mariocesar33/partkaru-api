@@ -15,3 +15,6 @@ export const combSystemsRelations = relations(combSystems, ({ many }) => {
     combSystemEngines: many(engines),
   }
 })
+
+export type DrizzleInsertCombSystems = typeof combSystems.$inferInsert
+export type DrizzleSelectCombSystems = typeof combSystems.$inferSelect
