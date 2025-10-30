@@ -7,7 +7,7 @@ export const carBodies = pgTable("car_bodies", {
   id: text("id")
     .$defaultFn(() => createId())
     .primaryKey(),
-  name: varchar("name", { length: 50 }).notNull().unique(),
+  name: varchar("name", { length: 50 }).notNull().unique(), //sedan, hatchback, suv, coupe, convertible, wagon, van, truck
 })
 
 export const carBodiesRelations = relations(carBodies, ({ many }) => {
