@@ -38,7 +38,10 @@ export const enginesRelations = relations(engines, ({ one, many }) => {
       relationName: "engines_comb_system",
     }),
     modifications: many(modifications, {
-      relationName: "engine_car_versions", // ← ADICIONE ESTA LINHA
+      relationName: "engine_car_versions",
     }),
   }
 })
+
+export type DrizzleInsertEngine = typeof engines.$inferInsert
+export type DrizzleSelectEngine = typeof engines.$inferSelect

@@ -4,7 +4,7 @@ import {
   type DrizzleSelectCarBodies,
 } from "@/database/schema"
 import { db } from "@/lib/drizzle"
-import type { CarBodiesRepository } from "../car-bodies-repository"
+import type { CarBodiesRepository, CarBodyDTO } from "../car-bodies-repository"
 import { eq } from "drizzle-orm"
 
 export class DrizzleCarBodiesRepository implements CarBodiesRepository {
@@ -24,7 +24,7 @@ export class DrizzleCarBodiesRepository implements CarBodiesRepository {
       .returning()
 
     if (!updatedCarBody) {
-      throw new Error(`carbody with ID ${id} not found for update.`)
+      throw new Error(`Carbody with ID ${id} not found for update.`)
     }
 
     return updatedCarBody
@@ -32,6 +32,16 @@ export class DrizzleCarBodiesRepository implements CarBodiesRepository {
 
   async delete(id: string): Promise<void> {
     await db.delete(carBodies).where(eq(carBodies.id, id))
+  }
+
+  async findById(id: string): Promise<CarBodyDTO | null> {
+    const [carBody] = await db
+      .select()
+      .from(carBodies)
+      .where(eq(carBodies.id, id))
+      .limit(1)
+
+    return carBody || null
   }
 
   async findByName(name: string): Promise<DrizzleSelectCarBodies | null> {

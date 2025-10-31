@@ -3,7 +3,10 @@ import {
   type DrizzleInsertPropulsions,
   type DrizzleSelectPropulsions,
 } from "@/database/schema"
-import type { PropulsionsRepository } from "../propulsions-repository"
+import type {
+  PropulsionDTO,
+  PropulsionsRepository,
+} from "../propulsions-repository"
 import { db } from "@/lib/drizzle"
 import { eq } from "drizzle-orm"
 
@@ -31,7 +34,7 @@ export class DrizzlePropulsionsRepository implements PropulsionsRepository {
       .returning()
 
     if (!updatedPropulsion) {
-      throw new Error(`propulsion with ID ${id} not found for update.`)
+      throw new Error(`Propulsion with ID ${id} not found for update.`)
     }
 
     return updatedPropulsion
@@ -46,6 +49,16 @@ export class DrizzlePropulsionsRepository implements PropulsionsRepository {
       .select()
       .from(propulsions)
       .where(eq(propulsions.id, id))
+      .limit(1)
+
+    return propulsion || null
+  }
+
+  async findByDescription(description: string): Promise<PropulsionDTO | null> {
+    const [propulsion] = await db
+      .select()
+      .from(propulsions)
+      .where(eq(propulsions.description, description))
       .limit(1)
 
     return propulsion || null

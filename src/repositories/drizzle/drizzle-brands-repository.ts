@@ -24,7 +24,7 @@ export class DrizzleBrandsRepository implements BrandsRepository {
       .returning()
 
     if (!updatedBrand) {
-      throw new Error(`Marca com ID ${id} não encontrada para atualização.`)
+      throw new Error(`Brand with ID ${id} not found for update.`)
     }
 
     return updatedBrand

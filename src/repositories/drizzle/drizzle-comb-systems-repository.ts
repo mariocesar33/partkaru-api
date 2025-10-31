@@ -3,7 +3,10 @@ import {
   type DrizzleInsertCombSystems,
   type DrizzleSelectCombSystems,
 } from "@/database/schema"
-import type { CombSystemsRepository } from "../comb-systems-repository"
+import type {
+  CombSystemDTO,
+  CombSystemsRepository,
+} from "../comb-systems-repository"
 import { db } from "@/lib/drizzle"
 import { eq } from "drizzle-orm"
 
@@ -31,7 +34,7 @@ export class DrizzleCombSystemsRepository implements CombSystemsRepository {
       .returning()
 
     if (!updatedCombSystem) {
-      throw new Error(`combSystem with ID ${id} not found for update.`)
+      throw new Error(`CombSystem with ID ${id} not found for update.`)
     }
 
     return updatedCombSystem
@@ -46,6 +49,16 @@ export class DrizzleCombSystemsRepository implements CombSystemsRepository {
       .select()
       .from(combSystems)
       .where(eq(combSystems.id, id))
+      .limit(1)
+
+    return combSystem || null
+  }
+
+  async findByDescription(description: string): Promise<CombSystemDTO | null> {
+    const [combSystem] = await db
+      .select()
+      .from(combSystems)
+      .where(eq(combSystems.description, description))
       .limit(1)
 
     return combSystem || null
