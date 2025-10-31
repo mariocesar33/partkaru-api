@@ -39,6 +39,16 @@ export class InMemoryFuelsRepository implements FuelsRepository {
     }
   }
 
+  async findById(id: string): Promise<FuelDTO | null> {
+    const fuel = this.items.find((item) => item.id === id)
+
+    if (!fuel) {
+      return null
+    }
+
+    return fuel
+  }
+
   async findByName(name: string): Promise<FuelDTO | null> {
     const fuel = this.items.find((item) => item.name === name)
 

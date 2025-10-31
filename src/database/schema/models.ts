@@ -8,9 +8,11 @@ export const models = pgTable("models", {
   id: text("id")
     .$defaultFn(() => createId())
     .primaryKey(),
-  brandId: text("brand_id").references(() => brands.id, {
-    onDelete: "set null",
-  }),
+  brandId: text("brand_id")
+    .references(() => brands.id, {
+      onDelete: "cascade",
+    })
+    .notNull(),
   name: varchar("name", { length: 50 }).notNull().unique(),
   description: text("description"), // XII
   generation: text("generation"), // E210
@@ -28,3 +30,6 @@ export const modelsRelations = relations(models, ({ one, many }) => {
     }),
   }
 })
+
+export type DrizzleInsertModel = typeof models.$inferInsert
+export type DrizzleSelectModel = typeof models.$inferSelect

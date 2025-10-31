@@ -39,6 +39,16 @@ export class InMemoryCarBodiesRepository implements CarBodiesRepository {
     }
   }
 
+  async findById(id: string): Promise<CarBodyDTO | null> {
+    const carBody = this.items.find((item) => item.id === id)
+
+    if (!carBody) {
+      return null
+    }
+
+    return carBody
+  }
+
   async findByName(name: string): Promise<CarBodyDTO | null> {
     const carBody = this.items.find((item) => item.name === name)
 
