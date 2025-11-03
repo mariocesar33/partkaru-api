@@ -25,17 +25,11 @@ export class DrizzlePropulsionsRepository implements PropulsionsRepository {
   async save(
     propulsion: DrizzleSelectPropulsions
   ): Promise<DrizzleSelectPropulsions> {
-    const { id, ...dataToUpdate } = propulsion
-
     const [updatedPropulsion] = await db
       .update(propulsions)
-      .set(dataToUpdate)
-      .where(eq(propulsions.id, id))
+      .set(propulsion)
+      .where(eq(propulsions.id, propulsion.id))
       .returning()
-
-    if (!updatedPropulsion) {
-      throw new Error(`Propulsion with ID ${id} not found for update.`)
-    }
 
     return updatedPropulsion
   }

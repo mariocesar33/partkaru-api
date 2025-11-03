@@ -15,17 +15,11 @@ export class DrizzleCarBodiesRepository implements CarBodiesRepository {
   }
 
   async save(carBody: DrizzleSelectCarBodies): Promise<DrizzleSelectCarBodies> {
-    const { id, ...dataToUpdate } = carBody
-
     const [updatedCarBody] = await db
       .update(carBodies)
-      .set(dataToUpdate)
-      .where(eq(carBodies.id, id))
+      .set(carBody)
+      .where(eq(carBodies.id, carBody.id))
       .returning()
-
-    if (!updatedCarBody) {
-      throw new Error(`Carbody with ID ${id} not found for update.`)
-    }
 
     return updatedCarBody
   }

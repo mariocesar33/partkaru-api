@@ -15,17 +15,11 @@ export class DrizzleGearboxesRepository implements GearboxesRepository {
   }
 
   async save(gearboxe: DrizzleSelectGearbox): Promise<DrizzleSelectGearbox> {
-    const { id, ...dataToUpdate } = gearboxe
-
     const [updatedGearbox] = await db
       .update(gearboxes)
-      .set(dataToUpdate)
-      .where(eq(gearboxes.id, id))
+      .set(gearboxe)
+      .where(eq(gearboxes.id, gearboxe.id))
       .returning()
-
-    if (!updatedGearbox) {
-      throw new Error(`Gearbox with ID ${id} not found for update.`)
-    }
 
     return updatedGearbox
   }

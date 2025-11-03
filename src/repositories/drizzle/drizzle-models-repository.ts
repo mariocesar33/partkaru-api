@@ -15,17 +15,11 @@ export class DrizzleModelsRepository implements ModelsRepository {
   }
 
   async save(model: DrizzleSelectModel): Promise<DrizzleSelectModel> {
-    const { id, ...dataToUpdate } = model
-
     const [updatedModel] = await db
       .update(models)
-      .set(dataToUpdate)
-      .where(eq(models.id, id))
+      .set(model)
+      .where(eq(models.id, model.id))
       .returning()
-
-    if (!updatedModel) {
-      throw new Error(`Marca com ID ${id} não encontrada para atualização.`)
-    }
 
     return updatedModel
   }

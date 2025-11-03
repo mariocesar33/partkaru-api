@@ -25,17 +25,11 @@ export class DrizzleCombSystemsRepository implements CombSystemsRepository {
   async save(
     combSystem: DrizzleSelectCombSystems
   ): Promise<DrizzleSelectCombSystems> {
-    const { id, ...dataToUpdate } = combSystem
-
     const [updatedCombSystem] = await db
       .update(combSystems)
-      .set(dataToUpdate)
-      .where(eq(combSystems.id, id))
+      .set(combSystem)
+      .where(eq(combSystems.id, combSystem.id))
       .returning()
-
-    if (!updatedCombSystem) {
-      throw new Error(`CombSystem with ID ${id} not found for update.`)
-    }
 
     return updatedCombSystem
   }

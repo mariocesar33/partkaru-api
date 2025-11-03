@@ -15,17 +15,11 @@ export class DrizzleBrandsRepository implements BrandsRepository {
   }
 
   async save(brand: DrizzleSelectBrand): Promise<DrizzleSelectBrand> {
-    const { id, ...dataToUpdate } = brand
-
     const [updatedBrand] = await db
       .update(brands)
-      .set(dataToUpdate)
-      .where(eq(brands.id, id))
+      .set(brand)
+      .where(eq(brands.id, brand.id))
       .returning()
-
-    if (!updatedBrand) {
-      throw new Error(`Brand with ID ${id} not found for update.`)
-    }
 
     return updatedBrand
   }

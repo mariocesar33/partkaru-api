@@ -15,17 +15,11 @@ export class DrizzleEnginesRepository implements EnginesRepository {
   }
 
   async save(engine: DrizzleSelectEngine): Promise<DrizzleSelectEngine> {
-    const { id, ...dataToUpdate } = engine
-
     const [updatedEngine] = await db
       .update(engines)
-      .set(dataToUpdate)
-      .where(eq(engines.id, id))
+      .set(engine)
+      .where(eq(engines.id, engine.id))
       .returning()
-
-    if (!updatedEngine) {
-      throw new Error(`Engine with ID ${id} not found for update.`)
-    }
 
     return updatedEngine
   }
