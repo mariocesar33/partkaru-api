@@ -59,3 +59,6 @@ export const modificationsRelations = relations(
     }
   }
 )
+
+export type DrizzleInsertModifications = typeof modifications.$inferInsert
+export type DrizzleSelectModifications = typeof modifications.$inferSelect
